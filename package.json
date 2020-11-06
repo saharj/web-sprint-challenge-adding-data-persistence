@@ -4,14 +4,14 @@
   "description": "**Read these instructions carefully. Understand exactly what is expected _before_ starting this Sprint Challenge.**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saharj/web-sprint-challenge-adding-data-persistence.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sahar jafari",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/saharj/web-sprint-challenge-adding-data-persistence/issues"
