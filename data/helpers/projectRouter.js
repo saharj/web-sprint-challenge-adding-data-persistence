@@ -33,5 +33,14 @@ Router.get("/tasks", (req, res) => {
       res.status(500).json({ message: "Error getting tasks" });
     });
 });
+Router.post("/tasks", (req, res) => {
+  ProjectDb.addTask(req.body)
+    .then((tasks) => {
+      res.status(201).json(tasks);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Error adding task" });
+    });
+});
 
 module.exports = Router;

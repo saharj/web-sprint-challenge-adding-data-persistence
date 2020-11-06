@@ -9,7 +9,29 @@ function getResources() {
 }
 
 function getTasks() {
-  return db("tasks");
+  return db("project_tasks as pt")
+    .join("tasks as t", "pt.task_id", "t.id")
+    .leftJoin("projects as p", "pt.project_id", "p.id")
+    .select(
+      "t.id",
+      "t.description",
+      "t.note",
+      "p.name as Project_name",
+      "p.description as Project_description"
+    )
+    .then((tasks) => {
+      if (tasks) {
+        return tasks;
+      } else {
+        return Promise.resolve(null);
+      }
+    });
 }
 
-module.exports = { getProjects, getResources, getTasks };
+function addTask(task) {
+  return db("tasks")
+    .insert(task)
+    .then(() => getTasks());
+}
+
+module.exports = { getProjects, getResources, getTasks, addTask };
