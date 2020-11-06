@@ -33,6 +33,7 @@ Router.get("/tasks", (req, res) => {
       res.status(500).json({ message: "Error getting tasks" });
     });
 });
+
 Router.post("/tasks", (req, res) => {
   ProjectDb.addTask(req.body)
     .then((tasks) => {
@@ -40,6 +41,26 @@ Router.post("/tasks", (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ message: "Error adding task" });
+    });
+});
+
+Router.post("/projects", (req, res) => {
+  ProjectDb.addProject(req.body)
+    .then((projs) => {
+      res.status(201).json(projs);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Error adding project" });
+    });
+});
+
+Router.post("/resources", (req, res) => {
+  ProjectDb.addResource(req.body)
+    .then((resource) => {
+      res.status(201).json(resource);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Error adding resource" });
     });
 });
 

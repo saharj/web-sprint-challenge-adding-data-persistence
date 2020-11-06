@@ -9,8 +9,8 @@ function getResources() {
 }
 
 function getTasks() {
-  return db("project_tasks as pt")
-    .join("tasks as t", "pt.task_id", "t.id")
+  return db("tasks as t")
+    .leftJoin("project_tasks as pt", "pt.task_id", "t.id")
     .leftJoin("projects as p", "pt.project_id", "p.id")
     .select(
       "t.id",
@@ -34,4 +34,23 @@ function addTask(task) {
     .then(() => getTasks());
 }
 
-module.exports = { getProjects, getResources, getTasks, addTask };
+function addProject(proj) {
+  return db("projects")
+    .insert(proj)
+    .then(() => getProjects());
+}
+
+function addResource(resource) {
+  return db("resources")
+    .insert(resource)
+    .then(() => getResources());
+}
+
+module.exports = {
+  getProjects,
+  getResources,
+  getTasks,
+  addTask,
+  addProject,
+  addResource,
+};
