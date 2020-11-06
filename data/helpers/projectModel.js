@@ -41,8 +41,8 @@ function addProject(proj) {
 }
 
 function addResource(resource) {
-  const index = getResources().findIndex((reso) => reso.name === resource.name);
-  if (index >= 0) {
+  const exists = db("resources as r").where("r.name", resource.name);
+  if (exists) {
     return Promise.resolve(null);
   } else {
     return db("resources")
