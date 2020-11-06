@@ -41,9 +41,14 @@ function addProject(proj) {
 }
 
 function addResource(resource) {
-  return db("resources")
-    .insert(resource)
-    .then(() => getResources());
+  const index = getResources().findIndex((reso) => reso.name === resource.name);
+  if (index >= 0) {
+    return Promise.resolve(null);
+  } else {
+    return db("resources")
+      .insert(resource)
+      .then(() => getResources());
+  }
 }
 
 module.exports = {
