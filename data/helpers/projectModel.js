@@ -41,14 +41,17 @@ function addProject(proj) {
 }
 
 function addResource(resource) {
-  const exists = db("resources as r").where("r.name", resource.name);
-  if (exists) {
-    return Promise.resolve(null);
-  } else {
-    return db("resources")
-      .insert(resource)
-      .then(() => getResources());
-  }
+  const query = getResources();
+
+  return query.where("name", resource.name).then((result) => {
+    if (result.length) {
+      return Promise.resolve("Resource already exists");
+    } else {
+      return db("resources")
+        .insert(resource)
+        .then(() => getResources());
+    }
+  });
 }
 
 module.exports = {
